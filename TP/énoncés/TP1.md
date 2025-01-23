@@ -9,11 +9,14 @@
 ### Installation de Java 21
 
 * Windows, Mac, ArchLinux, Debian, Arm https://www.oracle.com/java/technologies/downloads/#java21
+   * Si vous avez plusieurs versions de Java sur Windows, pensez à vérifier celle utilisée par la variable `JAVA_HOME` dans les variables d'environnement et si vous avez accès à java/bin dans votre `PATH` pensez à en vérifier les versions.
 
 * Ubuntu, Mint `sudo apt install openjdk-21-jdk`
+   * Si vous avez plusieurs versions de Java, vous pouvez utiliser `sudo update-alternatives --config java` et sélectionner celle qui vous intéresse.
 
 ### Installation d'IntelliJ
 * https://www.jetbrains.com/idea/download/ laisser tourner l'installation en background
+   * IntelliJ permet également de paramétrer sa version de Java en précisant un PATH dédié si jamais vous ne souhaitez/pouvez pas changer la version à la volée.
 
 ### Installation du projet starter pack
 
