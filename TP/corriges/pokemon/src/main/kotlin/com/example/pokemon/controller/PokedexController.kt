@@ -1,8 +1,9 @@
 package com.example.pokemon.controller
 
-import com.example.pokemon.model.Pokemon
+import com.example.pokemon.model.PokemonDTO
 import com.example.pokemon.model.Type
 import com.example.pokemon.model.TypeName
+import com.example.pokemon.service.PokemonService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -12,32 +13,38 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.client.HttpStatusCodeException
 import org.springframework.web.server.ResponseStatusException
-import java.net.http.HttpResponse
 
 @RestController
 @RequestMapping("/pokemon")
-class PokedexController {
-    val pokemonList = mutableListOf(
-        Pokemon(1, "Bulbizarre", "Un Pokemon bulbe vivant dans les champs", 1, Type(TypeName.Grass, TypeName.Poison)),
-        Pokemon(152, "Germignon", "Un petit germe trop mignon", 2, Type(TypeName.Grass)),
-        Pokemon(494, "Victini", "Une victoire a portee de main", 5, Type(TypeName.Fire, TypeName.Psychic)),
+class PokedexController(
+    private val pokemonService: PokemonService,
+) {
+    val pokemonDTOLists = mutableListOf(
+        PokemonDTO(
+            1,
+            "Bulbizarre",
+            "Un Pokemon bulbe vivant dans les champs",
+            1,
+            Type(TypeName.Grass, TypeName.Poison)
+        ),
+        PokemonDTO(152, "Germignon", "Un petit germe trop mignon", 2, Type(TypeName.Grass)),
+        PokemonDTO(494, "Victini", "Une victoire a portee de main", 5, Type(TypeName.Fire, TypeName.Psychic)),
     )
 
     @GetMapping
-    fun getAllPokemon(): ResponseEntity<List<Pokemon>> {
-        return ResponseEntity.ok().body(pokemonList)
+    fun getAllPokemon(): ResponseEntity<List<PokemonDTO>> {
+        return ResponseEntity.ok()
+            .body(pokemonService.getAllPokemon())
     }
 
 
     @GetMapping("/id/{id}")
     fun getPokemonById(
-        @PathVariable id: Int
-    ): ResponseEntity<Pokemon> {
-        val pokemon = pokemonList.find { it.id == id }
+        @PathVariable id: Long
+    ): ResponseEntity<PokemonDTO> {
+        val pokemon = pokemonDTOLists.find { it.id == id }
         if (pokemon != null) {
             return ResponseEntity.ok().body(pokemon)
         }
@@ -47,41 +54,41 @@ class PokedexController {
     @GetMapping("/generation/{generation}")
     fun getPokemonByGeneration(
         @PathVariable generation: Int
-    ): List<Pokemon> {
-        return pokemonList.filter { it.generation == generation }
+    ): List<PokemonDTO> {
+        return pokemonDTOLists.filter { it.generation == generation }
     }
 
     @PostMapping
     fun createPokemon(
-        @RequestBody pokemon: Pokemon
-    ): ResponseEntity<Pokemon> {
-        if (pokemonList.find { it.id == pokemon.id } != null) {
+        @RequestBody pokemonDTO: PokemonDTO
+    ): ResponseEntity<PokemonDTO> {
+        if (pokemonDTOLists.find { it.id == pokemonDTO.id } != null) {
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "the Pokemon already exists")
         }
-        pokemonList.add(pokemon)
-        return ResponseEntity(pokemon, HttpStatus.CREATED)
+        pokemonDTOLists.add(pokemonDTO)
+        return ResponseEntity(pokemonDTO, HttpStatus.CREATED)
     }
 
     @PatchMapping("/description/{id}")
     fun editDescription(
-        @PathVariable id: Int,
+        @PathVariable id: Long,
         @RequestBody description: String
-    ): ResponseEntity<Pokemon> {
-        val pokemonToUpdate = pokemonList.find { it.id == id }
+    ): ResponseEntity<PokemonDTO> {
+        val pokemonToUpdate = pokemonDTOLists.find { it.id == id }
         if (pokemonToUpdate == null) {
             throw ResponseStatusException(HttpStatus.NOT_FOUND, "Pokemon with id: $id not found, update impossible")
         }
         val updatedPokemon = pokemonToUpdate.copy(description = description)
-        pokemonList.removeIf { it.id == id }
-        pokemonList.add(updatedPokemon)
+        pokemonDTOLists.removeIf { it.id == id }
+        pokemonDTOLists.add(updatedPokemon)
         return ResponseEntity.ok().body(updatedPokemon)
     }
 
     @DeleteMapping("/{id}")
     fun deletePokemon(
-        @PathVariable id: Int
+        @PathVariable id: Long
     ): ResponseEntity.HeadersBuilder<*> {
-        pokemonList.removeIf { it.id == id }
+        pokemonDTOLists.removeIf { it.id == id }
         return ResponseEntity.noContent()
     }
 }
