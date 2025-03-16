@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS pokemon_weaknesses;
+DROP TABLE IF EXISTS pokemon_resistances;
 DROP TABLE IF EXISTS pokemon;
 DROP TABLE IF EXISTS type;
 
@@ -15,4 +17,20 @@ CREATE TABLE IF NOT EXISTS pokemon (
     type2 VARCHAR(50),
     FOREIGN KEY (type1) REFERENCES type(typeName),
     FOREIGN KEY (type2) REFERENCES type(typeName)
+);
+
+CREATE TABLE IF NOT EXISTS pokemon_weaknesses (
+    pokemon_id SMALLINT NOT NULL,
+    type_id SMALLINT NOT NULL,
+    PRIMARY KEY (pokemon_id, type_id),
+    FOREIGN KEY (pokemon_id) REFERENCES pokemon(id),
+    FOREIGN KEY (type_id) REFERENCES type(id)
+);
+
+CREATE TABLE IF NOT EXISTS pokemon_resistances (
+    pokemon_id SMALLINT NOT NULL,
+    type_id SMALLINT NOT NULL,
+    PRIMARY KEY (pokemon_id, type_id),
+    FOREIGN KEY (pokemon_id) REFERENCES pokemon(id),
+    FOREIGN KEY (type_id) REFERENCES type(id)
 );
