@@ -29,6 +29,12 @@
   * Java 21
 
 ## Kotlin
+
+### Une prise en main rapide du langage :
+
+* https://kotlinlang.org/docs/kotlin-tour-hello-world.html
+
+
 ### Les koans c'est trop bien, utilisez-les
 
 * https://play.kotlinlang.org/koans/overview, faire uniquement les exercices d'Introductions et sur les classes
