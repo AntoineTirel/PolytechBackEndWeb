@@ -2,3 +2,4 @@ INSERT INTO type (id, typeName) VALUES (0, 'Normal'), (1, 'Fighting'), (2, 'Flyi
 (10, 'Water'), (11, 'Grass'), (12, 'Electric'), (13, 'Psychic'), (14, 'Ice'), (15, 'Dragon'), (16, 'Dark'), (17, 'Fairy');
 INSERT INTO pokemon (id, description, name, generation, type1, type2) VALUES (1, 'un petit bulbe', 'Bulbizarre', 1, 'Grass', 'Poison');
 INSERT INTO pokemon (id, description, name, generation, type1, type2) VALUES (500, 'un bon cochon grille', 'Grotichon', 5, 'Fire', 'Fighting');
+INSERT INTO trainer (trainer_id, trainer_name, pokemon_id1, pokemon_id2) VALUES (1, 'Sacha Ketchum', 1, 500);
