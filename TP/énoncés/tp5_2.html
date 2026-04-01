@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<body style="text-align: center;">
+
+    <h1>
+        Un compteur de click
+    </h1>
+
+    <button>Cliquez moi</button>
+
+    <p>
+        J'ai cliqué <span>0</span> fois
+    </p>
+
+    <script>
+        function createCounter() {
+            let count = 0;
+            return function () {
+                count++;
+                return count;
+            }
+        }
+        const counter = createCounter();
+        const button = document.getElementsByClassName("myButton");
+        const disp = document.getElementsByClassName("counter");
+        button.addEventListener("click", () => {
+            disp.innerHTML = counter();
+        });
+    </script>
+</body>
+
+</html>

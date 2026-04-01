@@ -82,7 +82,7 @@ Il s'agit également d'un JpaRepository<TrainerEntity, Long>, n'oubliez pas les 
 
 On a maintenant :
 * Un nouveau point d'entrée, le TrainerController
-* Un nouvel modèle de données représenté par TrainerEntity
+* Un nouveau modèle de données représenté par TrainerEntity
 * Une méthode de conversion de l'entité vers le Schema DTO que l'on renvoie.
 
 Il nous manque encore le service pour faire le traitement intermédiaire.
