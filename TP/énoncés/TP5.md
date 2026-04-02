@@ -57,3 +57,14 @@ Tout comme il est possible d'interagir avec la visibilité, il est également po
 (10, 20, 30, 40).
 
 L'opérateur de modulo s'écrit % en JavaScript.
+
+
+## Pour parler d'observables
+
+Aller sur la page de rxjs dans l'overview https://rxjs.dev/guide/overview
+Cliquer sur un des blocs de code pour l'ouvrir dans StackBlitz et le remplacer par :
+import { of } from 'rxjs';
+
+of(1,2,3,4,5,6,7,8,9,10).pipe().subscribe(value => console.log(value));
+
+Utiliser la documentation de rxjs pour remplacer le code de manière à logger les carrés des multiples de 3, sans toucher au subscribe.
