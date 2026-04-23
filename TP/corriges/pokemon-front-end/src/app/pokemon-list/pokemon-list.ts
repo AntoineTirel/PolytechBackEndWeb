@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
+import { PokemonDTO } from '../@types/Pokemon';
 import { PokemonService } from '../pokemon-service';
-import { Pokemon } from '../@types/Pokemon';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -10,8 +10,8 @@ import { Pokemon } from '../@types/Pokemon';
 })
 export class PokemonList {
   private readonly pokemonService = inject(PokemonService);
-  protected pokemonList: Pokemon[] = [];
-  
+  protected pokemonList: PokemonDTO[] = [];
+
   constructor() {
     this.pokemonService.getPokemonList().subscribe(pokemonList => this.pokemonList = pokemonList);
   }

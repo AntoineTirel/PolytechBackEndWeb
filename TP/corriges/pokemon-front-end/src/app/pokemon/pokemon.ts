@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { PokemonDTO } from '../@types/Pokemon';
+import { PokemonService } from '../pokemon-service';
 
 @Component({
   selector: 'app-pokemon',
@@ -7,5 +9,10 @@ import { Component } from '@angular/core';
   styleUrl: './pokemon.css',
 })
 export class Pokemon {
-  
+  private readonly pokemonService = inject(PokemonService);
+  protected pokemon: PokemonDTO | undefined;
+
+  constructor() {
+    this.pokemonService.getPokemonList
+  }
 }

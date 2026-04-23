@@ -5,7 +5,7 @@ export type Type = {
     resistances: Type[];
 };
 
-export type Pokemon = {
+export type PokemonDTO = {
     id: number;
     name: string;
     description: string;
